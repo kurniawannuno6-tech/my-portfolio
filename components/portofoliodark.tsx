@@ -1,61 +1,28 @@
-"use client";
+'use client';
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mail, ArrowRight, ExternalLink, ChevronUp, Phone, Instagram, X, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Mail, ArrowRight, ExternalLink, ChevronUp, Phone, Instagram } from "lucide-react";
+import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 
-// Projects array with preview & gallery
 const projects = [
-  {
-    title: "Project One",
-    description: "A short description of project one.",
-    tags: ["Next.js", "TailwindCSS", "Framer Motion"],
-    preview: "/projects/project1-thumb.jpg",
-    gallery: [
-      "/projects/project1-1.jpg",
-      "/projects/project1-2.jpg",
-      "/projects/project1-3.jpg",
-    ],
-  },
-  {
-    title: "Project Two",
-    description: "A short description of project two.",
-    tags: ["React", "TypeScript", "API"],
-    preview: "/projects/project2-thumb.jpg",
-    gallery: [
-      "/projects/project2-1.jpg",
-      "/projects/project2-2.jpg",
-    ],
-  },
-  {
-    title: "Project Three",
-    description: "A short description of project three.",
-    tags: ["Unreal Engine", "3D", "Game Dev"],
-    preview: "/projects/project3-thumb.jpg",
-    gallery: [
-      "/projects/project3-1.jpg",
-      "/projects/project3-2.jpg",
-      "/projects/project3-3.jpg",
-    ],
-  },
+  { title: "Project One", description: "A short description of project one.", tags: ["Next.js", "TailwindCSS", "Framer Motion"], link: "https://example.com", image: "/projects/project1.png" },
+  { title: "Project Two", description: "A short description of project two.", tags: ["React", "TypeScript", "API"], link: "https://example.com", image: "/projects/project2.png" },
+  { title: "Project Three", description: "A short description of project three.", tags: ["Unreal Engine", "3D", "Game Dev"], link: "https://example.com", image: "/projects/project3.png" },
 ];
 
-// Profile info
 const profile = {
   name: "Nuno Kurniawan",
   role: "Creative Content Creator",
-  description:
-    "I am a 3D Artist & Video Editor with experience in creating animations, creative visuals, and multimedia content for various projects. Skilled in Blender, Unreal Engine, Maya, Premiere Pro, and After Effects.",
+  description: "I am a 3D Artist & Video Editor with experience in creating animations, creative visuals, and multimedia content for various projects. Skilled in Blender, Unreal Engine, Maya, Premiere Pro, and After Effects.",
   email: "kurniawannuno6@gmail.com",
   phone: "+62 896 7752 7711",
   instagram: "https://instagram.com/kurniawannuno6",
   photo: "/Profile.jpg",
 };
 
-// Tools / Logos
 const tools = [
   { name: "Unreal Engine", icon: "/icons/unreal.png" },
   { name: "Blender", icon: "/icons/blender.png" },
@@ -68,11 +35,6 @@ export default function PortfolioDark() {
   const [navSolid, setNavSolid] = useState(false);
   const topRef = useRef<HTMLDivElement | null>(null);
   const year = useMemo(() => new Date().getFullYear(), []);
-
-  // Lightbox state
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [galleryImages, setGalleryImages] = useState<string[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   // Navbar scroll effect
   useEffect(() => {
@@ -96,28 +58,19 @@ export default function PortfolioDark() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  const reveal = {
+  // Framer Motion reveal variants
+  const reveal: Variants = {
     hidden: { opacity: 0, y: 40 },
-    visible: (delay: number) => ({
+    visible: (custom: number = 0) => ({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, delay },
+      transition: { duration: 0.6, delay: custom },
     }),
   };
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-
-  const openLightbox = (images: string[], index = 0) => {
-    setGalleryImages(images);
-    setCurrentIndex(index);
-    setLightboxOpen(true);
-  };
-
-  const closeLightbox = () => setLightboxOpen(false);
-  const nextImage = () => setCurrentIndex((prev) => (prev + 1) % galleryImages.length);
-  const prevImage = () => setCurrentIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
 
   return (
     <div ref={topRef} className="relative min-h-screen bg-slate-950 text-slate-200 selection:bg-blue-500/30 overflow-hidden">
@@ -150,13 +103,13 @@ export default function PortfolioDark() {
         >
           <Image src={profile.photo} alt={profile.name} width={160} height={160} className="object-cover" />
         </motion.div>
-        <motion.h2 className="text-5xl font-bold mb-4" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.3 }} variants={reveal as any} custom={0.2}>
+        <motion.h2 className="text-5xl font-bold mb-4" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.3 }} variants={reveal} custom={0.2}>
           Hi, I’m <span className="text-blue-400">{profile.name}</span>
         </motion.h2>
-        <motion.p className="text-slate-400 max-w-xl mb-6" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.3 }} variants={reveal as any} custom={0.4}>
+        <motion.p className="text-slate-400 max-w-xl mb-6" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.3 }} variants={reveal} custom={0.4}>
           {profile.description}
         </motion.p>
-        <motion.div className="flex gap-4" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.3 }} variants={reveal as any} custom={0.6}>
+        <motion.div className="flex gap-4" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.3 }} variants={reveal} custom={0.6}>
           <Button className="bg-blue-500 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/50 transition" onClick={() => scrollTo("projects")}>
             View Projects <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
@@ -167,14 +120,14 @@ export default function PortfolioDark() {
       </section>
 
       {/* About */}
-      <motion.section id="about" className="px-8 py-20 max-w-5xl mx-auto relative z-10" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.3 }} variants={reveal as any} custom={0.2}>
+      <motion.section id="about" className="px-8 py-20 max-w-5xl mx-auto relative z-10" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.3 }} variants={reveal} custom={0.2}>
         <h3 className="text-3xl font-bold mb-8">About Me</h3>
         <p className="text-slate-400 leading-relaxed">{profile.role} — {profile.description}</p>
 
         {/* Tools / Logos */}
         <div className="flex flex-wrap gap-4 mt-6">
           {tools.map((tool, idx) => (
-            <motion.div key={idx} whileHover={{ scale: 1.2 }} className="w-12 h-12 flex items-center justify-center p-2 rounded bg-slate-800 dark:bg-slate-700 shadow hover:shadow-blue-500/50 transition">
+            <motion.div key={idx} whileHover={{ scale: 1.2 }} className="w-12 h-12 flex items-center justify-center p-2 rounded bg-slate-800 shadow hover:shadow-blue-500/50 transition">
               <Image src={tool.icon} alt={tool.name} width={40} height={40} className="object-contain" />
             </motion.div>
           ))}
@@ -182,27 +135,25 @@ export default function PortfolioDark() {
       </motion.section>
 
       {/* Projects */}
-      <motion.section id="projects" className="px-8 py-20 bg-slate-900 dark:bg-slate-800 relative z-10" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} variants={reveal as any} custom={0.2}>
+      <motion.section id="projects" className="px-8 py-20 bg-slate-900 relative z-10" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} variants={reveal} custom={0.2}>
         <h3 className="text-3xl font-bold mb-8">Projects</h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, idx) => (
             <motion.div key={idx} whileHover={{ y: -8, boxShadow: "0px 0px 20px rgba(59,130,246,0.5)" }} transition={{ type: "spring", stiffness: 200 }}>
-              <Card className="relative overflow-hidden bg-slate-900 dark:bg-slate-700 border-slate-800 cursor-pointer" onClick={() => openLightbox(project.gallery, 0)}>
+              <Card className="relative overflow-hidden bg-slate-900 border-slate-800">
                 <CardHeader>
                   <CardTitle>{project.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {project.preview && (
-                    <Image src={project.preview} alt={project.title} width={400} height={200} className="mb-4 object-cover rounded" />
-                  )}
+                  <Image src={project.image} alt={project.title} width={400} height={200} className="object-cover rounded mb-4 cursor-pointer" onClick={() => window.open(project.link, "_blank")} />
                   <p className="text-slate-400 mb-4">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tags.map((tag, i) => (
-                      <Badge key={i} variant="secondary" className="bg-slate-800 dark:bg-slate-700 text-slate-300">{tag}</Badge>
+                      <Badge key={i} variant="secondary" className="bg-slate-800 text-slate-300">{tag}</Badge>
                     ))}
                   </div>
-                  <Button size="sm" variant="outline" className="flex gap-2 items-center hover:shadow hover:shadow-blue-500/50 transition">
-                    <ExternalLink size={16} /> View Gallery
+                  <Button size="sm" variant="outline" className="flex gap-2 items-center hover:shadow hover:shadow-blue-500/50 transition" onClick={() => window.open(project.link, "_blank")}>
+                    <ExternalLink size={16} /> Demo
                   </Button>
                 </CardContent>
               </Card>
@@ -211,36 +162,9 @@ export default function PortfolioDark() {
         </div>
       </motion.section>
 
-      {/* Lightbox with animation */}
-      <AnimatePresence>
-        {lightboxOpen && (
-          <motion.div
-            key="lightbox"
-            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <button className="absolute top-4 right-4 text-white p-2 hover:text-blue-400" onClick={closeLightbox}><X size={24} /></button>
-            <button className="absolute left-4 text-white p-2 hover:text-blue-400" onClick={prevImage}><ChevronLeft size={32} /></button>
-            <motion.div
-              key={galleryImages[currentIndex]}
-              className="max-w-3xl max-h-full"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Image src={galleryImages[currentIndex]} alt={`Gallery ${currentIndex + 1}`} width={1200} height={800} className="object-contain rounded" />
-            </motion.div>
-            <button className="absolute right-4 text-white p-2 hover:text-blue-400" onClick={nextImage}><ChevronRight size={32} /></button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Contact */}
-      <motion.section id="contact" className="px-8 py-20 max-w-4xl mx-auto relative z-10" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.3 }} variants={reveal as any} custom={0.2}>
-        <h3 className="text-3xl font-bold mb-8">CONTACT ME</h3>
+      <motion.section id="contact" className="px-8 py-20 max-w-4xl mx-auto relative z-10" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.3 }} variants={reveal} custom={0.2}>
+        <h3 className="text-3xl font-bold mb-8">Get in Touch</h3>
         <p className="text-slate-400 mb-6">You can reach me through the following platforms:</p>
         <div className="flex gap-6 flex-wrap">
           <motion.a whileHover={{ scale: 1.1, rotate: -5 }} href={`mailto:${profile.email}`} className="flex items-center gap-2 hover:text-blue-400 transition"><Mail size={20} /> {profile.email}</motion.a>
