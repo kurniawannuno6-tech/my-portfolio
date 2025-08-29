@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import {
   Mail,
   ArrowRight,
-  ExternalLink,
   ChevronUp,
   Phone,
   Instagram,
@@ -78,6 +77,7 @@ export default function PortfolioDark() {
   const [navSolid, setNavSolid] = useState(false);
   const [activeShowcase, setActiveShowcase] = useState<number | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
+  const [showCV, setShowCV] = useState(false); // modal CV
   const topRef = useRef<HTMLDivElement | null>(null);
   const year = useMemo(() => new Date().getFullYear(), []);
 
@@ -146,6 +146,9 @@ export default function PortfolioDark() {
             </button>
             <button onClick={() => scrollTo("projects")} className="hover:text-white">
               Projects
+            </button>
+            <button onClick={() => scrollTo("cv")} className="hover:text-white">
+              CV
             </button>
             <button onClick={() => scrollTo("contact")} className="hover:text-white">
               Contact
@@ -335,7 +338,7 @@ export default function PortfolioDark() {
           </button>
 
           <div className="relative w-full max-w-5xl flex items-center justify-center">
-            {/* Prev Button */}
+            {/* Prev */}
             <button
               onClick={() =>
                 setActiveImageIndex((prev) =>
@@ -349,7 +352,7 @@ export default function PortfolioDark() {
               ‹
             </button>
 
-            {/* Image with slide animation */}
+            {/* Image */}
             <motion.div
               key={projects[activeShowcase].showcase[activeImageIndex]}
               initial={{ opacity: 0, x: 50 }}
@@ -367,7 +370,7 @@ export default function PortfolioDark() {
               />
             </motion.div>
 
-            {/* Next Button */}
+            {/* Next */}
             <button
               onClick={() =>
                 setActiveImageIndex((prev) =>
@@ -380,6 +383,60 @@ export default function PortfolioDark() {
             >
               ›
             </button>
+          </div>
+        </motion.div>
+      )}
+
+      {/* CV Section */}
+      <motion.section
+        id="cv"
+        className="px-8 py-20 max-w-5xl mx-auto relative z-10 text-center"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3 }}
+        variants={reveal}
+        custom={0.2}
+      >
+        <h3 className="text-3xl font-bold mb-8">My CV</h3>
+        <p className="text-slate-400 mb-6">Click the button below to view my CV.</p>
+        <Button
+          onClick={() => setShowCV(true)}
+          className="bg-blue-500 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/50"
+        >
+          View CV
+        </Button>
+      </motion.section>
+
+      {/* CV Modal */}
+      {showCV && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/90 backdrop-blur-lg flex flex-col items-center justify-center z-[999]"
+        >
+          <button
+            onClick={() => setShowCV(false)}
+            className="absolute top-6 right-6 text-white hover:text-red-400 text-2xl font-bold"
+          >
+            ✕
+          </button>
+
+          <div className="relative w-full max-w-4xl flex justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="w-full flex justify-center"
+            >
+              <Image
+                src="/CV.png"
+                alt="CV - Nuno Kurniawan"
+                width={1000}
+                height={1400}
+                className="object-contain max-h-[90vh] w-auto rounded-lg shadow-lg"
+              />
+            </motion.div>
           </div>
         </motion.div>
       )}
