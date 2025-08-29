@@ -14,13 +14,12 @@ import {
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-// Data project dengan preview + showcase
+// Data project dengan preview + showcase / link
 const projects = [
   {
-    title: "3D Scenes",
+    title: "3D Scenes Images",
     description: "3D scene created with Blender 3D software",
-    tags: ["Blender", "3D", "Scenes"],
-    link: "https://example.com",
+    tags: ["Blender", "3D", "Scenes", "Images"],
     image: "/projects/project1.jpg",
     showcase: [
       "/projects/project1-1.jpg",
@@ -32,24 +31,20 @@ const projects = [
     ],
   },
   {
-    title: "Project Two",
-    description: "A short description of project two.",
-    tags: ["React", "TypeScript", "API"],
-    link: "https://example.com",
+    title: "3D Scenes Videos",
+    description: "3D scene created with Blender 3D software and Unreal Engine 5",
+    tags: ["Blender", "Unreal Engine", "3D", "Videos"],
     image: "/projects/project2.jpg",
-    showcase: ["/projects/project2-1.jpg", "/projects/project2-2.jpg"],
+    link: "https://drive.google.com/drive/folders/1DXy7Bx0gGhziBpOdT40o0l0hNUihYJI9?usp=drive_link", // 👉 ganti link ke Google Drive
+    showcase: [],
   },
   {
-    title: "Project Three",
-    description: "A short description of project three.",
-    tags: ["Unreal Engine", "3D", "Game Dev"],
-    link: "https://example.com",
+    title: "Short Movies",
+    description: "Short film editing and VFX showcase.",
+    tags: ["Short Movies", "Editing"],
     image: "/projects/project3.jpg",
-    showcase: [
-      "/projects/project3-1.jpg",
-      "/projects/project3-2.jpg",
-      "/projects/project3-3.jpg",
-    ],
+    link: "https://drive.google.com/drive/folders/1j6iN64kgE9glQmaKtBm3XaTkPuiPv2YL?usp=drive_link", // 👉 ganti link ke Google Drive
+    showcase: [],
   },
 ];
 
@@ -302,17 +297,28 @@ export default function PortfolioDark() {
                     ))}
                   </div>
                   <div className="flex gap-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="flex gap-2 items-center hover:shadow hover:shadow-pink-500/50"
-                      onClick={() => {
-                        setActiveShowcase(idx);
-                        setActiveImageIndex(0);
-                      }}
-                    >
-                      <Images size={16} /> Showcase
-                    </Button>
+                    {project.showcase && project.showcase.length > 0 ? (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="flex gap-2 items-center hover:shadow hover:shadow-pink-500/50"
+                        onClick={() => {
+                          setActiveShowcase(idx);
+                          setActiveImageIndex(0);
+                        }}
+                      >
+                        <Images size={16} /> Showcase
+                      </Button>
+                    ) : (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="flex gap-2 items-center hover:shadow hover:shadow-blue-500/50"
+                        onClick={() => window.open(project.link, "_blank")}
+                      >
+                        <Images size={16} /> View on Drive
+                      </Button>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -321,8 +327,8 @@ export default function PortfolioDark() {
         </div>
       </motion.section>
 
-      {/* Showcase Modal */}
-      {activeShowcase !== null && (
+      {/* Showcase Modal (Project 1 only) */}
+      {activeShowcase !== null && projects[activeShowcase].showcase.length > 0 && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
