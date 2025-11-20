@@ -66,6 +66,8 @@ const tools = [
   { name: "After Effects", icon: "/icons/aftereffects.png" },
   { name: "Premiere Pro", icon: "/icons/premiere.png" },
   { name: "Maya", icon: "/icons/maya.png" },
+  { name: "MS Word", icon: "/icons/word.png" },
+  { name: "MS Excel", icon: "/icons/excel.png" },
 ];
 
 export default function PortfolioDark() {
