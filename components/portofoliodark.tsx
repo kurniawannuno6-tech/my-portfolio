@@ -52,7 +52,7 @@ const profile = {
   name: "Nuno Kurniawan",
   role: "Creative Content Creator",
   description:
-    "I am a 3D Artist & Video Editor with experience in creating animations, creative visuals, and multimedia content for various projects. Skilled in Blender, Unreal Engine, Maya, Premiere Pro, and After Effects.",
+    "I am a 3D Artist & Video Editor with experience in creating animations, creative visuals, and multimedia content for various projects. Skilled in Blender, Unreal Engine, Maya, Premiere Pro, and After Effects. I also have the ability to process and manage data using Microsoft Office tools such as Excel and Word.",
   email: "kurniawannuno6@gmail.com",
   phone: "+62 896 7752 7711",
   instagram: "https://instagram.com/kurniawannuno6",
