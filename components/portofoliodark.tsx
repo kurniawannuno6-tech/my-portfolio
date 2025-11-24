@@ -57,7 +57,7 @@ const profile = {
   phone: "+62 896 7752 7711",
   instagram: "https://instagram.com/kurniawannuno6",
   photo: "/Profile.jpg",
-  portofolioLink: "https://drive.google.com/drive/folders/1hhhawNq4hzzMi9ep4s6JA9RXUHuUuqcI?usp=sharing", // 👉 tambahkan link portfolio Google Drive di sini
+  portofolioLink: "https://drive.google.com/drive/folders/1hhhawNq4hzzMi9ep4s6JA9RXUHuUuqcI?usp=sharing", // 👉 tambahkan link portofolio Google Drive di sini
 };
 
 // Logo aplikasi/tools
@@ -71,7 +71,7 @@ const tools = [
   { name: "MS Excel", icon: "/icons/excel.png" },
 ];
 
-export default function PortfolioDark() {
+export default function PortofolioDark() {
   const [navSolid, setNavSolid] = useState(false);
   const [activeShowcase, setActiveShowcase] = useState<number | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
@@ -202,12 +202,12 @@ export default function PortfolioDark() {
           variants={reveal}
           custom={0.6}
         >
-          {/* Tombol Portfolio yang menuju Google Drive */}
+          {/* Tombol Portofolio yang menuju Google Drive */}
           <Button
             className="bg-blue-500 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/50 transition"
             onClick={() => window.open(profile.portofolioLink, "_blank")}
           >
-            Portfolio <ArrowRight className="ml-2 w-4 h-4" />
+            Portofolio <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
           <Button
             variant="outline"
