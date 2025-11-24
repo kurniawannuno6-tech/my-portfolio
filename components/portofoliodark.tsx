@@ -57,6 +57,7 @@ const profile = {
   phone: "+62 896 7752 7711",
   instagram: "https://instagram.com/kurniawannuno6",
   photo: "/Profile.jpg",
+  portofolioLink: "https://drive.google.com/drive/folders/1hhhawNq4hzzMi9ep4s6JA9RXUHuUuqcI?usp=sharing", // 👉 tambahkan link portfolio Google Drive di sini
 };
 
 // Logo aplikasi/tools
@@ -181,7 +182,7 @@ export default function PortfolioDark() {
           variants={reveal}
           custom={0.2}
         >
-          Hi, I’m <span className="text-blue-400">{profile.name}</span>
+          Hi, I'm <span className="text-blue-400">{profile.name}</span>
         </motion.h2>
         <motion.p
           className="text-slate-400 max-w-xl mb-6"
@@ -201,11 +202,12 @@ export default function PortfolioDark() {
           variants={reveal}
           custom={0.6}
         >
+          {/* Tombol Portfolio yang menuju Google Drive */}
           <Button
             className="bg-blue-500 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/50 transition"
-            onClick={() => scrollTo("projects")}
+            onClick={() => window.open(profile.portofolioLink, "_blank")}
           >
-            View Projects <ArrowRight className="ml-2 w-4 h-4" />
+            Portfolio <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
           <Button
             variant="outline"
