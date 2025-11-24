@@ -182,7 +182,7 @@ export default function PortfolioDark() {
           variants={reveal}
           custom={0.2}
         >
-          Hi, I'm <span className="text-blue-400">{profile.name}</span>
+            <span className="text-blue-400">{profile.name}</span>
         </motion.h2>
         <motion.p
           className="text-slate-400 max-w-xl mb-6"
